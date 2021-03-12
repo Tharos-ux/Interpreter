@@ -140,7 +140,15 @@ object Interpreter {
    * @return la mémoire après l'interprétation de command
    */
   // TODO TP2
-  def interpreterCommand(command: Command, memory: Memory): Memory = ???
+  def interpreterCommand(command: Command, memory: Memory): Memory = {
+    command match {
+      case Nop => memory
+      case Set(v,e) => assign(v,interpreterExpr(e,memory),memory)
+      case For(c,b) => interpreterCommands(b,memory)
+      case If(c,ifc,elc) => memory
+      case While(i,b) => memory
+    }
+  }
 
   /**
    * @param commands : une liste non vide d'AST décrivant une liste non vide de commandes du langage WHILE
